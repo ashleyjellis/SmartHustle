@@ -5,9 +5,15 @@ export interface Provider {
   category: string
   badge?: string
   description: string
+  verdict?: string
+  rating?: number
+  bestFor?: string
   monthlyFee?: string
   cardFee?: string
   transferFee?: string
+  features?: string[]
+  eligibility?: string
+  welcomePromo?: string
   tags: string[]
   pros?: string[]
   cons?: string[]
