@@ -2,10 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": ".next",
-  "env": {
-    "ADMIN_USER": "@admin_user",
-    "ADMIN_PASS": "@admin_pass",
-    "SESSION_SECRET": "@session_secret"
-  }
+  "outputDirectory": ".next"
 }
