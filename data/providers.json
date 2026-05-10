@@ -1,0 +1,243 @@
+[
+  {
+    "id": "virgin-money-m-account",
+    "name": "Virgin Money M Account for Business",
+    "logo": "/logos/virgin-money.svg",
+    "category": "business-banking",
+    "badge": "Best all-rounder",
+    "description": "No monthly charges and free basic transactions mean it won't quietly eat into your cashflow. You get everything you'd expect from a traditional bank — plus accounting software integration and an online dashboard for your business data, which saves real hours on admin.",
+    "monthlyFee": "Free",
+    "cardFee": "Free",
+    "transferFee": "From free",
+    "tags": ["no-monthly-fee", "FSCS-protected", "cashback", "branch-banking", "accounting-integration"],
+    "pros": [
+      "No monthly fee",
+      "Free basic transactions",
+      "Good for managing your money with the M-Track dashboard"
+    ],
+    "cons": [
+      "Free account only for companies with annual turnover under £1 million",
+      "No branches in the South of England, Wales or Northern Ireland"
+    ],
+    "featured": true,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "tide-free",
+    "name": "Tide Business Account — Free",
+    "logo": "/logos/tide.svg",
+    "category": "business-banking",
+    "badge": "Best for taking payments",
+    "description": "Tide takes the pain out of managing payments. You can charge customers via card reader, smartphone, payment links or the web — all from one place. If you're registering a new limited company, you can do it through Tide for just £24.99.",
+    "monthlyFee": "Free",
+    "cardFee": "Free",
+    "transferFee": "Free",
+    "tags": ["no-monthly-fee", "payments", "accounting-integration", "limited-company", "savings"],
+    "pros": [
+      "Cashback and free bank transfers for 12 months when you apply via NerdWallet",
+      "No monthly fee",
+      "Great options for taking payments",
+      "Open an account in minutes",
+      "Earn interest with a free savings account"
+    ],
+    "cons": [
+      "No branches"
+    ],
+    "featured": true,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "revolut-basic",
+    "name": "Revolut Basic Business Account",
+    "logo": "/logos/revolut.svg",
+    "category": "business-banking",
+    "badge": "Best for international banking",
+    "description": "If your business crosses borders, Revolut carries a lot of useful kit. Spend in over 150 currencies and exchange £1,000 per month at the interbank rate — manage your money, charge customers and send payments across the globe all from one place.",
+    "monthlyFee": "£10",
+    "cardFee": "Free",
+    "transferFee": "10 free per month",
+    "tags": ["international", "multi-currency", "payments", "accounting-integration", "mobile-app"],
+    "pros": [
+      "Great international transfer features",
+      "Extensive payment options",
+      "Smart features via Revolut's app"
+    ],
+    "cons": [
+      "All accounts have a monthly fee",
+      "You cannot deposit cash or cheques",
+      "Accounts are not FSCS protected"
+    ],
+    "featured": false,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "barclays-business",
+    "name": "Barclays Business Bank Account",
+    "logo": "/logos/barclays.svg",
+    "category": "business-banking",
+    "badge": "Best for business support",
+    "description": "Barclays gives you free basic transactions and no monthly fees for the first 12 months. If you're thinking about scaling, account holders can access savings on bookkeeping software, business insurance and more through Barclays's partner marketplace.",
+    "monthlyFee": "Free for 12 months",
+    "cardFee": "Free",
+    "transferFee": "From free",
+    "tags": ["FSCS-protected", "branch-banking", "accounting-integration", "business-support", "no-monthly-fee"],
+    "pros": [
+      "Free basic transactions",
+      "Free access to FreshBooks accounting software",
+      "Help when you need it, thanks to extensive business support options"
+    ],
+    "cons": [
+      "Monthly fee of £8.50 after the first year"
+    ],
+    "featured": true,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "wallester-free",
+    "name": "Wallester Business Free Account",
+    "logo": "/logos/wallester.svg",
+    "category": "business-banking",
+    "badge": "Best for tracking real-time expenses",
+    "description": "A fee-free account for managing expenses and issuing virtual debit cards — a genuinely strong alternative to traditional business banking for startups and digital-first teams. If your business needs scalable card and expense management, Wallester is worth a look.",
+    "monthlyFee": "Free",
+    "cardFee": "Free",
+    "transferFee": "Free",
+    "tags": ["no-monthly-fee", "virtual-cards", "international", "expense-tracking", "accounting-integration"],
+    "pros": [
+      "No monthly subscription fee",
+      "Issue hundreds of business expense cards instantly",
+      "Great for international and remote teams",
+      "Smart budgeting and expense management tools"
+    ],
+    "cons": [
+      "No overdraft or business loan options",
+      "Mobile app has mixed reviews",
+      "Not covered by the FSCS protection scheme"
+    ],
+    "featured": false,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "worldfirst-business",
+    "name": "WorldFirst Business Account",
+    "logo": "/logos/worldfirst.svg",
+    "category": "business-banking",
+    "badge": "Best for global payments",
+    "description": "If your business is about to break into new markets, WorldFirst is worth considering. Receive payments in over 20 currencies without charge, and send in over 100. There's no set-up or monthly fee, and there's a potential sign-up bonus on top.",
+    "monthlyFee": "Free",
+    "cardFee": "Free",
+    "transferFee": "Free",
+    "tags": ["no-monthly-fee", "international", "multi-currency", "cashback", "marketplace-collections"],
+    "pros": [
+      "Earn cashback on spending",
+      "Avoid foreign transaction fees in 15 currencies",
+      "Receive and spend in 20+ currencies",
+      "Fast international payments",
+      "Easy collections from 130+ marketplaces"
+    ],
+    "cons": [
+      "No overdraft facility",
+      "Some outgoing payments have fees",
+      "No FSCS protection"
+    ],
+    "featured": false,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "natwest-startup",
+    "name": "NatWest Start Up Business Account",
+    "logo": "/logos/natwest.svg",
+    "category": "business-banking",
+    "badge": "No monthly fees for 2 years",
+    "description": "NatWest's Startup Business Account gives you no monthly fees and free basic UK transactions for two years. That's a meaningful head start for a new business. You also get branches, a solid mobile app and free accounting software.",
+    "monthlyFee": "Free",
+    "cardFee": "Free for 24 months",
+    "transferFee": "Free for 24 months",
+    "tags": ["no-monthly-fee", "FSCS-protected", "branch-banking", "accounting-integration", "startup"],
+    "pros": [
+      "No monthly fees",
+      "Two years of free basic transactions",
+      "Manage accounts online, via app, branch, Post Office or phone",
+      "Free accounting software from FreeAgent"
+    ],
+    "cons": [
+      "No branches in Scotland or Northern Ireland"
+    ],
+    "featured": false,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "cooperative-bank-business",
+    "name": "The Co-operative Bank Business Bank Account",
+    "logo": "/logos/co-op.svg",
+    "category": "business-banking",
+    "badge": "Best for ethical banking",
+    "description": "A no-fee business account from a bank with a genuine ethical policy. Free unlimited access to the Go Get Paid app, integration with Sage, Xero and QuickBooks, and access to Clover payment terminals for £1 a month for the first 12 months.",
+    "monthlyFee": "Free",
+    "cardFee": "Free",
+    "transferFee": "From free",
+    "tags": ["no-monthly-fee", "FSCS-protected", "ethical-banking", "branch-banking", "accounting-integration", "overdraft"],
+    "pros": [
+      "No monthly service fee",
+      "Free standard transactions (excluding cash/cheque)",
+      "Account management online, by phone, via app or branch",
+      "Arranged business overdraft of up to £250,000"
+    ],
+    "cons": [
+      "No branches in Northern Ireland"
+    ],
+    "featured": false,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "monzo-lite",
+    "name": "Monzo Lite Business Account",
+    "logo": "/logos/monzo.svg",
+    "category": "business-banking",
+    "badge": "Best online",
+    "description": "Monzo's Lite Account is a free business account with simple ways to pay — including in-person contactless card payments. Around nine in 10 applications are accepted the same day. Digital receipts, transaction insights and 24/7 customer support come as standard.",
+    "monthlyFee": "Free",
+    "cardFee": "Free",
+    "transferFee": "Free",
+    "tags": ["no-monthly-fee", "FSCS-protected", "online-only", "same-day-opening", "24-7-support"],
+    "pros": [
+      "No monthly fee",
+      "Same-day account opening for most customers",
+      "Free basic transactions",
+      "Great app, with genuinely helpful features",
+      "24/7 customer support"
+    ],
+    "cons": [
+      "No phone or branch banking",
+      "Business accounts not available to charities or partnerships",
+      "No accounting software integration with the Lite account"
+    ],
+    "featured": true,
+    "ctaUrl": "#"
+  },
+  {
+    "id": "lloyds-business",
+    "name": "Lloyds Bank Business Account",
+    "logo": "/logos/lloyds.svg",
+    "category": "business-banking",
+    "badge": "Best for branch access",
+    "description": "If you value banking in branch and face-to-face customer support, Lloyds is a good shout. Branches right across England and Wales, plus Halifax and Bank of Scotland branches in Scotland and Northern Ireland. No monthly fees for 12 months.",
+    "monthlyFee": "Free for 12 months",
+    "cardFee": "Free",
+    "transferFee": "100 electronic payments out free per month",
+    "tags": ["FSCS-protected", "branch-banking", "accounting-integration", "overdraft", "no-monthly-fee"],
+    "pros": [
+      "No monthly fee for 12 months",
+      "Free accounting tools",
+      "Unlimited free debit cards",
+      "Potential access to £25,000 credit",
+      "UK-wide branch access"
+    ],
+    "cons": [
+      "£8.50 monthly fee after the first year",
+      "Certain transactions have fees"
+    ],
+    "featured": false,
+    "ctaUrl": "#"
+  }
+]
