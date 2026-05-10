@@ -7,17 +7,26 @@ const links = [
 
 export default function Nav() {
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-10">
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="font-bold text-brand-navy text-lg tracking-tight">
-          King<span className="text-brand-coral">Page</span>
+    <nav
+      style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #efeeea' }}
+      className="sticky top-0 z-10"
+    >
+      <div className="max-w-[1140px] mx-auto px-6 h-14 flex items-center justify-between">
+        <Link
+          href="/"
+          style={{ fontFamily: 'var(--font-headline)', color: '#001814' }}
+          className="text-xl font-semibold tracking-tight"
+        >
+          King<span style={{ color: '#a43d23' }}>Page</span>
         </Link>
-        <ul className="flex gap-6">
+
+        <ul className="flex gap-7 items-center">
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
-                className="text-sm text-gray-600 hover:text-brand-navy font-medium transition-colors"
+                style={{ fontFamily: 'var(--font-body)', color: '#414846' }}
+                className="text-sm font-medium hover:text-[#001814] transition-colors"
               >
                 {label}
               </Link>

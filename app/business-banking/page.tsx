@@ -25,9 +25,14 @@ export default function BusinessBankingPage() {
         ]}
       />
 
-      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="max-w-[1140px] mx-auto px-6 py-14">
         <div className="mb-10">
-          <h2 className="text-xl font-bold text-brand-navy mb-2">Our top 10 business bank accounts</h2>
+          <h2
+            style={{ fontFamily: 'var(--font-headline)', color: '#001814' }}
+            className="text-2xl font-semibold mb-2"
+          >
+            Our top 10 business bank accounts
+          </h2>
           <p className="text-gray-500 text-sm">
             Each of these products may be one of a range offered by the provider. Always check terms and
             conditions before applying. Only affiliated products are shown — other products are available.

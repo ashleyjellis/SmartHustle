@@ -21,12 +21,19 @@ export default function HomePage() {
         ]}
       />
 
-      <div className="max-w-5xl mx-auto px-6 py-12">
-        {/* Featured section */}
+      <div className="max-w-[1140px] mx-auto px-6 py-14">
         {featured.length > 0 && (
-          <section className="mb-14">
-            <h2 className="text-xl font-bold text-brand-navy mb-6">Featured picks</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="mb-16">
+            <h2
+              style={{ fontFamily: 'var(--font-headline)', color: '#001814' }}
+              className="text-2xl font-semibold mb-1"
+            >
+              Featured picks
+            </h2>
+            <p style={{ fontFamily: 'var(--font-body)', color: '#717976' }} className="text-sm mb-7">
+              Our top-rated accounts right now.
+            </p>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map((p) => (
                 <ProviderCard key={p.id} provider={p} />
               ))}
@@ -34,10 +41,16 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* All providers */}
         <section>
-          <h2 className="text-xl font-bold text-brand-navy mb-2">All categories</h2>
-          <p className="text-gray-500 text-sm mb-6">Filter by feature to find what fits.</p>
+          <h2
+            style={{ fontFamily: 'var(--font-headline)', color: '#001814' }}
+            className="text-2xl font-semibold mb-1"
+          >
+            All categories
+          </h2>
+          <p style={{ fontFamily: 'var(--font-body)', color: '#717976' }} className="text-sm mb-7">
+            Filter by feature to narrow it down.
+          </p>
           <FilterBar providers={allProviders} />
         </section>
       </div>

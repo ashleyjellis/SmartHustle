@@ -25,32 +25,48 @@ export default function FilterBar({ providers }: Props) {
 
   return (
     <div>
-      {/* Filter chips */}
+      {/* Filter chips – Forest Deep outline → solid on active */}
       <div className="flex flex-wrap gap-2 mb-8">
-        {tags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => setActive(tag)}
-            className={`text-sm px-4 py-1.5 rounded-full border font-medium transition-colors ${
-              active === tag
-                ? 'bg-brand-coral text-white border-brand-coral'
-                : 'bg-white text-gray-600 border-gray-200 hover:border-brand-coral hover:text-brand-coral'
-            }`}
-          >
-            {tag === ALL_TAG ? tag : tag.replace(/-/g, ' ')}
-          </button>
-        ))}
+        {tags.map((tag) => {
+          const isActive = active === tag
+          return (
+            <button
+              key={tag}
+              onClick={() => setActive(tag)}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                padding: '0.3rem 0.875rem',
+                borderRadius: '9999px',
+                border: `1px solid ${isActive ? '#001814' : 'rgba(0,24,20,0.25)'}`,
+                backgroundColor: isActive ? '#001814' : 'transparent',
+                color: isActive ? '#fbf9f5' : '#414846',
+                cursor: 'pointer',
+                transition: 'all 0.12s ease',
+                letterSpacing: '0.01em',
+              }}
+            >
+              {tag === ALL_TAG ? tag : tag.replace(/-/g, ' ')}
+            </button>
+          )
+        })}
       </div>
 
-      {/* Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Card grid */}
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((p) => (
           <ProviderCard key={p.id} provider={p} />
         ))}
       </div>
 
       {visible.length === 0 && (
-        <p className="text-gray-400 text-center py-12">No providers match this filter.</p>
+        <p
+          style={{ fontFamily: 'var(--font-body)', color: '#717976' }}
+          className="text-center py-14"
+        >
+          No providers match this filter.
+        </p>
       )}
     </div>
   )
