@@ -6,54 +6,22 @@ import { getProviders } from '@/lib/providers'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Best Business Bank Accounts UK 2026 | KingPage',
-  description:
-    'Compare the best business bank accounts in the UK. Honest fees, features and pros and cons — updated February 2026.',
+  title: 'Best Business Bank Accounts UK 2026 | Ledger',
+  description: 'Compare the best business bank accounts in the UK. Honest fees, features and pros and cons — updated May 2026.',
 }
 
 const FAQ = [
   {
-    q: 'Do I need a business bank account as a sole trader?',
-    a: "No legal requirement — but there are plenty of good reasons to have one. It makes it easier to monitor payments and performance, simplifies your bookkeeping and tax return, and makes your business look more professional.",
+    q: 'Do I need a business account as a sole trader?',
+    a: "Legally, no. You can use your personal account for business transactions if you're a sole trader. However, many personal banks explicitly forbid business use in their terms and conditions, which could lead to your account being closed. It's almost always better to have a dedicated account.",
   },
   {
-    q: 'Can I use a personal bank account for my business?',
-    a: "If you're a sole trader or in a general partnership, possibly — if your account provider allows it. But if your business is a limited company or you're part of a limited liability partnership, a separate business account is always required.",
+    q: 'What documents do I need to open an account?',
+    a: "Typically, you'll need proof of identity (passport/driving licence), proof of address, your business address, and your Companies House registration number if you're a limited company. Some banks may also ask for an estimate of your annual turnover.",
   },
   {
-    q: 'How long does it take to open a business bank account?',
-    a: "With some online providers, minutes. With others, several days or even weeks. Sole traders and general partnerships tend to find it quicker, as providers need to carry out fewer checks than on limited companies.",
-  },
-  {
-    q: 'Can you open a business account with bad credit?',
-    a: "Usually yes, though you may find fewer options. Many digital providers don't run a hard credit check, though how much this matters depends on your business credit score and the provider's eligibility requirements.",
-  },
-]
-
-const FINDING = [
-  {
-    heading: 'Are a startup',
-    body: 'Look for low or no monthly fees, ease of use and great customer service. Fee-free accounts from digital providers like Tide and Monzo often appeal to startups.',
-  },
-  {
-    heading: 'Are self-employed or a sole trader',
-    body: 'A separate business account keeps your finances apart, making accounting and tax significantly easier. Features like automatic receipt capture and invoicing tools are worth prioritising.',
-  },
-  {
-    heading: 'Want an overdraft facility',
-    body: 'Barclays, NatWest and The Co-operative Bank all offer business overdrafts if you need a financial buffer for cashflow.',
-  },
-  {
-    heading: 'Make international payments',
-    body: 'Digital providers like Revolut and WorldFirst offer multi-currency accounts designed primarily for international businesses.',
-  },
-  {
-    heading: 'Want a high-street bank',
-    body: "Lloyds, Barclays, The Co-operative Bank and Virgin Money all have branch networks if in-person banking matters to you.",
-  },
-  {
-    heading: 'Need to deposit cash',
-    body: 'Most major banks with branches are the obvious starting point. Some online providers also allow cash and cheque deposits via the Post Office or PayPoint.',
+    q: 'Are digital banks safe?',
+    a: "Yes, provided they are regulated. Most digital banks like Monzo and Starling have full UK banking licences, meaning your deposits are protected up to £85,000 by the FSCS. Platforms like Tide are e-money institutions which use safeguarding to protect your funds.",
   },
 ]
 
@@ -61,246 +29,262 @@ export default function BusinessBankingPage() {
   const providers = getProviders().filter((p) => p.category === 'business-banking')
 
   return (
-    <div style={{ backgroundColor: '#fbf9f5' }}>
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #efeeea' }}>
-        <div className="max-w-[1140px] mx-auto px-6 py-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 mb-5" aria-label="Breadcrumb">
-            <Link
-              href="/"
-              style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-              className="uppercase font-semibold hover:text-[#001814] transition-colors"
-            >
-              Home
-            </Link>
-            <span style={{ color: '#c1c8c5' }}>›</span>
-            <span
-              style={{ fontFamily: 'var(--font-body)', color: '#001814', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-              className="uppercase font-semibold"
-            >
-              Business Banking
-            </span>
-          </nav>
+    <div className="bg-surface">
 
-          <h1
-            style={{ fontFamily: 'var(--font-headline)', color: '#001814' }}
-            className="text-4xl md:text-5xl font-semibold leading-tight tracking-tight mb-4 max-w-2xl"
-          >
-            Best Business Bank Accounts in the UK
-          </h1>
+      {/* ── Dark Hero ────────────────────────────────────────── */}
+      <section className="bg-primary text-white py-12">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div className="md:col-span-8">
+              {/* Breadcrumb */}
+              <nav className="flex items-center gap-2 mb-6 text-label-sm font-medium uppercase tracking-wider text-white/60">
+                <Link href="/" className="hover:text-white transition-colors">Home</Link>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-white">Business Banking</span>
+              </nav>
 
-          <p
-            style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '1.0625rem', lineHeight: 1.7 }}
-            className="max-w-xl mb-5"
-          >
-            Choosing the right banking partner is a pivotal decision for your company's growth.
-            We've analysed over 60 providers to bring you an honest, kind, and jargon-free guide
-            to the accounts that actually support small businesses.
-          </p>
+              <h1 className="text-display-xl-mobile md:text-display-xl mb-6">
+                Best Business Bank Accounts in the UK
+              </h1>
 
-          <span
-            style={{
-              display: 'inline-block',
-              backgroundColor: '#ff8162', color: '#ffffff',
-              fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.75rem',
-              padding: '0.3rem 0.875rem', borderRadius: '9999px',
-            }}
-          >
-            Updated May 2026
-          </span>
+              <p className="text-body-lg text-white/80 mb-6 leading-relaxed max-w-2xl">
+                Choosing the right banking partner is a pivotal decision for your company's growth.
+                We've analysed over 60 providers to bring you an honest, kind, and jargon-free guide
+                to the accounts that actually support small businesses.
+              </p>
+
+              <div className="flex flex-wrap gap-3 items-center">
+                <span className="border border-white/20 font-semibold px-3 py-1 rounded-full text-label-sm bg-secondary-container text-primary">
+                  Updated May 2026
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── Two-column layout ────────────────────────────────── */}
-      <div className="max-w-[1140px] mx-auto px-6 py-10">
-        <div className="flex flex-col lg:flex-row gap-8">
+      {/* ── Main content ─────────────────────────────────────── */}
+      <main className="max-w-[1200px] mx-auto px-4 md:px-16 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-          {/* ── Main column ──────────────────────────────────── */}
-          <div className="flex-1 min-w-0">
+          {/* ── Left/main column ─────────────────────────────── */}
+          <div className="lg:col-span-8 space-y-6">
 
             {/* Filter + sort bar */}
-            <div id="top-accounts" className="flex flex-wrap items-center justify-between gap-3 mb-6">
-              <div className="flex flex-wrap gap-2">
+            <div id="top-accounts" className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3">
                 {['All Accounts', 'Free Monthly Fee', 'Fintech Only', 'High Street'].map((f, i) => (
                   <button
                     key={f}
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.8125rem', fontWeight: i === 0 ? 600 : 400,
-                      padding: '0.35rem 0.875rem',
-                      borderRadius: '9999px',
-                      border: `1px solid ${i === 0 ? '#001814' : 'rgba(0,24,20,0.2)'}`,
-                      backgroundColor: i === 0 ? '#001814' : 'transparent',
-                      color: i === 0 ? '#fbf9f5' : '#414846',
-                      cursor: 'pointer',
-                    }}
+                    className={`px-6 py-2 rounded-full font-bold text-body-md whitespace-nowrap transition-colors ${
+                      i === 0
+                        ? 'bg-primary text-on-primary'
+                        : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest'
+                    }`}
                   >
                     {f}
                   </button>
                 ))}
               </div>
-              <select
-                style={{
-                  fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.8125rem',
-                  border: '1px solid rgba(0,24,20,0.2)', borderRadius: '0.25rem',
-                  padding: '0.35rem 0.75rem', backgroundColor: '#ffffff', cursor: 'pointer',
-                }}
-                aria-label="Sort by"
-              >
-                <option>Sort by: Ledger Rating</option>
-                <option>Sort by: Monthly Fee</option>
-                <option>Sort by: Name</option>
-              </select>
+              <div className="flex items-center gap-2 cursor-pointer text-on-surface-variant hover:text-primary transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 6h16M8 12h8M11 18h2" strokeLinecap="round"/>
+                </svg>
+                <span className="font-bold text-body-md">Sort by: Ledger Rating</span>
+              </div>
             </div>
 
-            {/* Provider strips */}
-            <div className="flex flex-col gap-4">
-              {providers.map((p) => (
-                <ProviderStrip key={p.id} provider={p} />
-              ))}
-            </div>
+            {/* Provider cards */}
+            {providers.map((p, idx) => (
+              <div key={p.id}>
+                <ProviderStrip provider={p} />
 
-            {/* ── Editorial: What is a business bank account ── */}
-            <section id="what-is" className="mt-14">
-              <h2
-                style={{ fontFamily: 'var(--font-headline)', color: '#001814' }}
-                className="text-2xl font-semibold mb-4"
-              >
-                What is a business bank account?
-              </h2>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#414846', lineHeight: 1.75, fontSize: '1.0625rem' }} className="mb-4">
-                A business bank account is a standalone current account built for businesses. Whether you're a sole trader,
-                a partnership, a limited company, or a charity, a business account helps you keep track of everything coming
-                in and going out. Keep it separate from your personal finances and you'll find it easier to see how your
-                business is actually doing, stay on top of your taxes, and manage your money obligations without the chaos.
-              </p>
-
-              {/* Pros / cons grid */}
-              <div className="grid sm:grid-cols-2 gap-5 mt-6">
-                <div style={{ backgroundColor: '#ffffff', border: '1px solid #efeeea', borderRadius: '0.25rem', padding: '1.25rem' }}>
-                  <p style={{ fontFamily: 'var(--font-body)', color: '#2d6a4f', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-                    className="uppercase font-semibold mb-3">Advantages</p>
-                  <ul className="flex flex-col gap-2">
-                    {['Separates your finances', 'Simpler to keep track', 'Tailor-made for businesses', 'Saves time on bookkeeping', 'Access to credit', 'Looks more professional'].map((a) => (
-                      <li key={a} style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem' }}
-                        className="flex items-start gap-2">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0 mt-0.5">
-                          <circle cx="7" cy="7" r="7" fill="#2d6a4f" fillOpacity="0.1" />
-                          <path d="M4 7l2 2 4-4" stroke="#2d6a4f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div style={{ backgroundColor: '#ffffff', border: '1px solid #efeeea', borderRadius: '0.25rem', padding: '1.25rem' }}>
-                  <p style={{ fontFamily: 'var(--font-body)', color: '#a43d23', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-                    className="uppercase font-semibold mb-3">Drawbacks</p>
-                  <ul className="flex flex-col gap-2">
-                    {['Monthly fees on some accounts', 'Transaction charges may apply', 'Eligibility requirements vary', 'Low interest on balances', 'More admin to open one'].map((d) => (
-                      <li key={d} style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem' }}
-                        className="flex items-start gap-2">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0 mt-0.5">
-                          <circle cx="7" cy="7" r="7" fill="#a43d23" fillOpacity="0.1" />
-                          <path d="M5 5l4 4M9 5l-4 4" stroke="#a43d23" strokeWidth="1.5" strokeLinecap="round" />
-                        </svg>
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* ── How to find the right account ─────────────── */}
-            <section id="how-to-find" className="mt-12">
-              <h2 style={{ fontFamily: 'var(--font-headline)', color: '#001814' }} className="text-2xl font-semibold mb-4">
-                How to find the right business account
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-5">
-                {[
-                  { label: 'Daily Operations', body: 'How many transactions do you expect? High-volume businesses need accounts with low per-transaction costs.' },
-                  { label: 'Global Reach', body: 'If you trade internationally, look for competitive exchange rates and low international transfer fees.' },
-                  { label: 'Tech Integrations', body: 'Does the bank sync with your accounting software like Xero, QuickBooks, or FreeAgent?' },
-                  { label: 'Customer Support', body: 'Do you need a physical branch or are you happy with 24/7 in-app support?' },
-                ].map(({ label, body }) => (
-                  <div key={label} style={{ backgroundColor: '#ffffff', border: '1px solid #efeeea', borderRadius: '0.25rem', padding: '1.25rem' }}>
-                    <p style={{ fontFamily: 'var(--font-body)', color: '#001814', fontSize: '0.875rem' }} className="font-semibold mb-1">{label}</p>
-                    <p style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem', lineHeight: 1.6 }}>{body}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* ── Finding the best account if you... (DARK) ─── */}
-            <section id="switching" className="mt-12 -mx-6">
-              <div style={{ backgroundColor: '#001814', padding: '3rem 1.5rem' }}>
-                <div className="max-w-none">
-                  <h2 style={{ fontFamily: 'var(--font-headline)', color: '#fbf9f5' }} className="text-2xl font-semibold mb-2">
-                    Finding the best account if you…
-                  </h2>
-                  <p style={{ fontFamily: 'var(--font-body)', color: '#adcdc5', fontSize: '0.9375rem' }} className="mb-8">
-                    Different businesses have very different needs. Here's how to narrow it down.
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    {FINDING.map(({ heading, body }) => (
-                      <div
-                        key={heading}
-                        style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '0.25rem', padding: '1.25rem', border: '1px solid rgba(255,255,255,0.08)' }}
-                      >
-                        <p style={{ fontFamily: 'var(--font-headline)', color: '#ff8162', fontSize: '0.9375rem' }} className="font-semibold mb-1.5">
-                          {heading}
-                        </p>
-                        <p style={{ fontFamily: 'var(--font-body)', color: '#c1c8c5', fontSize: '0.875rem', lineHeight: 1.6 }}>
-                          {body}
+                {/* Editorial callout after 1st provider */}
+                {idx === 0 && (
+                  <div className="bg-surface-container-high p-8 rounded-xl border-l-4 border-secondary mt-6">
+                    <div className="flex items-start gap-4">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="#011921" className="flex-shrink-0 mt-1">
+                        <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
+                      </svg>
+                      <div>
+                        <h4 className="text-headline-md text-primary mb-2">The Honest Truth: Switching</h4>
+                        <p className="text-body-md text-on-surface-variant">
+                          Switching business bank accounts is no longer the nightmare it used to be. The Current Account Switch Service (CASS) handles the transfer of all your standing orders and direct debits automatically within 7 working days. Don't stay with a sub-par bank just because you fear the paperwork.
                         </p>
                       </div>
-                    ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* ── Editorial sections ───────────────────────── */}
+            <div className="mt-16 space-y-16">
+
+              {/* What is a business bank account? */}
+              <section id="what-is-it">
+                <h2 className="text-headline-lg text-primary mb-6 border-l-4 border-secondary pl-6">
+                  What is a business bank account?
+                </h2>
+                <p className="text-body-lg text-on-surface-variant mb-8 leading-relaxed">
+                  A business bank account is specifically designed for your company's financial transactions. While sole traders aren't legally required to have one, keeping your personal and professional finances separate is a hallmark of good business management.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant">
+                    <h4 className="text-headline-md text-primary mb-4 flex items-center gap-2">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="#006783"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                      Advantages
+                    </h4>
+                    <ul className="space-y-4">
+                      {[
+                        ['Professionalism', 'Pay suppliers and receive payments in your business name.'],
+                        ['Tax Clarity', 'Simplifies your annual tax return by clearly separating business expenses.'],
+                        ['Credit Building', 'Establishes a financial history for your company, essential for future loans.'],
+                      ].map(([title, body]) => (
+                        <li key={title} className="flex items-start gap-3">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="#006783" className="flex-shrink-0 mt-0.5">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                          </svg>
+                          <span className="text-body-md text-on-surface-variant">
+                            <strong>{title}:</strong> {body}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant">
+                    <h4 className="text-headline-md text-primary mb-4 flex items-center gap-2">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="#ba1a1a"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                      Drawbacks
+                    </h4>
+                    <ul className="space-y-4">
+                      {[
+                        ['Fees', 'Many traditional accounts charge monthly fees or per-transaction costs.'],
+                        ['Stricter Checks', 'Opening an account often requires more documentation than a personal one.'],
+                        ['Complexity', 'More features can mean a steeper learning curve for some platforms.'],
+                      ].map(([title, body]) => (
+                        <li key={title} className="flex items-start gap-3">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="#ba1a1a" className="flex-shrink-0 mt-0.5">
+                            <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                          </svg>
+                          <span className="text-body-md text-on-surface-variant">
+                            <strong>{title}:</strong> {body}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* ── FAQs ──────────────────────────────────────── */}
-            <section id="faqs" className="mt-12">
-              <h2 style={{ fontFamily: 'var(--font-headline)', color: '#001814' }} className="text-2xl font-semibold mb-5">
-                Business bank account FAQs
-              </h2>
-              <div className="flex flex-col" style={{ border: '1px solid #efeeea', borderRadius: '0.25rem', overflow: 'hidden' }}>
-                {FAQ.map(({ q, a }, i) => (
-                  <details
-                    key={q}
-                    style={{ borderTop: i > 0 ? '1px solid #efeeea' : 'none' }}
-                    className="group"
-                  >
-                    <summary
-                      style={{ fontFamily: 'var(--font-body)', color: '#001814', fontSize: '0.9375rem' }}
-                      className="flex items-center justify-between px-5 py-4 cursor-pointer font-medium list-none hover:bg-[#fbf9f5] transition-colors"
-                    >
-                      {q}
-                      <svg className="w-4 h-4 flex-shrink-0 ml-3 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </summary>
-                    <div className="px-5 pb-4">
-                      <p style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.9375rem', lineHeight: 1.7 }}>{a}</p>
+              {/* How to find the right account */}
+              <section id="how-to-find">
+                <h2 className="text-headline-lg text-primary mb-6 border-l-4 border-secondary pl-6">
+                  How to find the right business account
+                </h2>
+                <div className="space-y-8">
+                  <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant">
+                    <h3 className="text-headline-md text-primary mb-4">What to consider</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {[
+                        ['Daily Operations', 'How many transactions do you expect? High-volume businesses need accounts with low per-transaction fees.'],
+                        ['Global Reach', 'If you trade internationally, look for competitive exchange rates and low international transfer fees.'],
+                        ['Tech Integrations', 'Does the bank sync with your accounting software like Xero, QuickBooks, or FreeAgent?'],
+                        ['Customer Support', 'Do you need a physical branch or are you happy with 24/7 in-app support?'],
+                      ].map(([title, body]) => (
+                        <div key={title} className="space-y-2">
+                          <p className="font-semibold text-primary text-body-md">{title}</p>
+                          <p className="text-body-md text-on-surface-variant">{body}</p>
+                        </div>
+                      ))}
                     </div>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
+                  </div>
 
-          {/* ── Sidebar ────────────────────────────────────── */}
-          <div className="lg:w-72 flex-shrink-0">
-            <div className="lg:sticky lg:top-20">
-              <PageSidebar />
+                  {/* Dark "Finding the best account" block */}
+                  <div className="bg-primary text-white rounded-xl p-6">
+                    <h3 className="text-headline-md mb-6">Finding the best account if you...</h3>
+                    <div className="space-y-6">
+                      {[
+                        ['...are a Sole Trader', 'Look for fee-free accounts. Digital challengers like Starling often provide the best value for individuals.'],
+                        ['...handle a lot of Cash', 'Traditional high-street banks or Starling (via the Post Office) are your best bets for physical deposits.'],
+                        ['...have a bad Credit History', "Explore e-money platforms like Tide or Cashplus, which typically don't require full credit checks for opening."],
+                      ].map(([heading, body]) => (
+                        <div key={heading as string} className="border-l-2 border-secondary pl-4">
+                          <p className="font-semibold text-secondary-container mb-1 text-body-md">{heading}</p>
+                          <p className="text-white/80 text-body-md">{body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Can I switch? */}
+              <section id="can-i-switch">
+                <div className="bg-surface-container-high p-6 rounded-xl border border-outline-variant">
+                  <h2 className="text-headline-lg text-primary mb-6">Can I switch my business account?</h2>
+                  <div className="flex flex-col md:flex-row gap-8 items-center">
+                    <div className="md:w-2/3">
+                      <p className="text-body-lg text-on-surface-variant mb-6 leading-relaxed">
+                        Yes, and it's simpler than you might think. Most UK banks are part of the <strong>Current Account Switch Service (CASS)</strong>. This guarantees your switch will be finished within seven working days, and it's completely free to use.
+                      </p>
+                      <div className="space-y-4">
+                        {[
+                          'Choose your new bank and apply for an account.',
+                          'Request a switch through CASS once approved.',
+                          'Relax. Your old bank transfers everything automatically.',
+                        ].map((step, i) => (
+                          <div key={i} className="flex items-start gap-3">
+                            <span className="bg-primary text-secondary-container w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 mt-1 font-bold">
+                              {i + 1}
+                            </span>
+                            <p className="text-body-md text-on-surface-variant">{step}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="md:w-1/3 bg-surface-container-lowest p-6 rounded-lg border border-outline-variant text-center shadow-sm">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="#006783" className="mx-auto mb-4">
+                        <path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                      </svg>
+                      <h4 className="text-headline-md text-primary mb-2">7 Days</h4>
+                      <p className="text-label-sm text-on-surface-variant uppercase tracking-wider">Switch Guarantee</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* FAQs */}
+              <section id="faqs">
+                <h2 className="text-headline-lg text-primary mb-8 border-l-4 border-secondary pl-6">
+                  Business bank account FAQs
+                </h2>
+                <div className="space-y-4">
+                  {FAQ.map(({ q, a }) => (
+                    <details key={q} className="group bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+                      <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+                        <span className="text-headline-md text-primary">{q}</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                          className="flex-shrink-0 ml-4 transition-transform group-open:rotate-180">
+                          <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </summary>
+                      <div className="px-6 pb-6 pt-2">
+                        <p className="text-body-md text-on-surface-variant leading-relaxed">{a}</p>
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
 
+          {/* ── Sidebar ──────────────────────────────────────── */}
+          <PageSidebar />
         </div>
-      </div>
+      </main>
     </div>
   )
 }

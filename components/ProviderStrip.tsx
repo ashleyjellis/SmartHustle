@@ -13,268 +13,173 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'pros-cons', label: 'Pros & Cons' },
 ]
 
-function StarRating({ rating }: { rating: number }) {
-  const full = Math.floor(rating)
-  const partial = rating - full
-  return (
-    <span className="flex items-center gap-0.5" aria-label={`${rating} out of 5`}>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <svg key={i} width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <defs>
-            <linearGradient id={`star-${rating}-${i}`} x1="0" x2="1" y1="0" y2="0">
-              <stop offset={i <= full ? '100%' : i === full + 1 ? `${partial * 100}%` : '0%'} stopColor="#cca830" />
-              <stop offset={i <= full ? '100%' : i === full + 1 ? `${partial * 100}%` : '0%'} stopColor="#e4e2de" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M6 1l1.2 3.6H11L8.2 6.8l1 3.2L6 8.2 2.8 10l1-3.2L1 4.6h3.8z"
-            fill={i <= full ? '#cca830' : i === full + 1 && partial > 0.5 ? '#cca830' : '#e4e2de'}
-          />
-        </svg>
-      ))}
-    </span>
-  )
-}
-
 export default function ProviderStrip({ provider }: { provider: Provider }) {
   const [tab, setTab] = useState<Tab>('overview')
 
-  const isFeatured = provider.featured
-
   return (
-    <article
-      style={{
-        backgroundColor: '#ffffff',
-        border: isFeatured ? '2px solid #001814' : '1px solid rgba(0,24,20,0.12)',
-        borderRadius: '0.25rem',
-        overflow: 'hidden',
-      }}
-    >
-      {isFeatured && (
-        <div style={{ height: 3, background: 'linear-gradient(90deg, #ff8162, #a43d23)' }} />
-      )}
-
-      {/* Main row */}
-      <div className="flex flex-col md:flex-row md:items-start gap-4 p-5">
-
-        {/* Logo + name col */}
-        <div className="flex items-start gap-3 md:w-52 flex-shrink-0">
-          <div
-            style={{
-              width: 44, height: 44, flexShrink: 0,
-              border: '1px solid #efeeea', borderRadius: '0.25rem',
-              backgroundColor: '#fbf9f5',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              overflow: 'hidden',
-            }}
-          >
-            <Image
-              src={provider.logo} alt={`${provider.name} logo`}
-              width={36} height={36} className="object-contain"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-            />
-          </div>
-          <div className="min-w-0">
-            <p
-              style={{ fontFamily: 'var(--font-headline)', color: '#001814', fontSize: '0.9375rem', lineHeight: 1.3 }}
-              className="font-semibold"
-            >
-              {provider.name}
-            </p>
-            {isFeatured && (
-              <span
-                style={{
-                  display: 'inline-block', marginTop: 4,
-                  fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.04em',
-                  color: '#ffffff', backgroundColor: '#001814',
-                  borderRadius: '0.125rem', padding: '0.15rem 0.5rem',
-                  fontFamily: 'var(--font-body)',
-                }}
-              >
-                Ledger Trusted
-              </span>
-            )}
-            {provider.rating && (
-              <div className="flex items-center gap-1.5 mt-1.5">
-                <StarRating rating={provider.rating} />
-                <span style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.75rem' }}>
-                  {provider.rating} / 5 Ledger Rating
+    <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+      <div className="p-6">
+        {/* Header row */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
+          <div className="flex items-center gap-4">
+            {/* Logo */}
+            <div className="w-16 h-16 bg-surface-container-low rounded-lg flex items-center justify-center p-2 flex-shrink-0">
+              <Image
+                src={provider.logo} alt={`${provider.name} logo`}
+                width={48} height={48} className="object-contain"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+              />
+            </div>
+            <div>
+              <h3 className="text-headline-md text-primary">{provider.name}</h3>
+              {provider.badge && (
+                <span className="bg-secondary-container text-primary px-2 py-0.5 rounded text-label-sm font-semibold">
+                  {provider.badge}
                 </span>
-              </div>
-            )}
+              )}
+            </div>
           </div>
+          {provider.rating && (
+            <div className="flex flex-col items-end">
+              <div className="flex items-center gap-1 text-primary mb-1">
+                {/* Filled star */}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#011921">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                <span className="text-headline-md">{provider.rating}</span>
+                <span className="text-on-surface-variant text-body-md">/ 5</span>
+              </div>
+              <span className="text-label-sm text-on-surface-variant">Ledger Rating</span>
+            </div>
+          )}
         </div>
 
-        {/* Fee stats */}
-        <div className="flex gap-5 md:gap-8 flex-shrink-0">
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
           {provider.monthlyFee && (
-            <div>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.6875rem', letterSpacing: '0.05em' }}
-                className="uppercase font-semibold mb-0.5">Monthly Fee</p>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#001814' }} className="text-sm font-bold">{provider.monthlyFee}</p>
+            <div className="bg-surface-container-low p-4 rounded-lg">
+              <span className="text-label-sm text-on-surface-variant block mb-1">Monthly Fee</span>
+              <span className="text-headline-md text-primary">{provider.monthlyFee}</span>
             </div>
           )}
           {provider.bestFor && (
-            <div>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.6875rem', letterSpacing: '0.05em' }}
-                className="uppercase font-semibold mb-0.5">Best For</p>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#001814' }} className="text-sm font-bold">{provider.bestFor}</p>
+            <div className="bg-surface-container-low p-4 rounded-lg">
+              <span className="text-label-sm text-on-surface-variant block mb-1">Best For</span>
+              <span className="text-headline-md text-primary">{provider.bestFor}</span>
             </div>
           )}
           {provider.transferFee && (
-            <div>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.6875rem', letterSpacing: '0.05em' }}
-                className="uppercase font-semibold mb-0.5">Free Transfers</p>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#001814' }} className="text-sm font-bold">{provider.transferFee}</p>
+            <div className="bg-surface-container-low p-4 rounded-lg col-span-2 md:col-span-1">
+              <span className="text-label-sm text-on-surface-variant block mb-1">Free Transfers</span>
+              <span className="text-headline-md text-primary">{provider.transferFee}</span>
             </div>
           )}
         </div>
 
-        {/* CTA (desktop) */}
-        <div className="ml-auto flex-shrink-0 hidden md:flex flex-col gap-2 items-end">
-          <a
-            href={provider.ctaUrl}
-            target="_blank" rel="noopener noreferrer"
-            style={{
-              backgroundColor: '#001814', color: '#fbf9f5',
-              fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.8125rem',
-              padding: '0.5rem 1.25rem', borderRadius: '0.25rem',
-              whiteSpace: 'nowrap', display: 'inline-block',
-            }}
-            className="hover:bg-[#0f2d28] transition-colors"
-          >
-            Visit Bank
-          </a>
-          <button
-            style={{
-              fontFamily: 'var(--font-body)', color: '#a43d23',
-              fontSize: '0.8125rem', fontWeight: 500, background: 'none', border: 'none',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4,
-            }}
-            onClick={() => setTab('pros-cons')}
-          >
-            Read Ledger Verdict
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M2 4l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div style={{ borderTop: '1px solid #efeeea' }}>
-        <div className="flex" style={{ borderBottom: '1px solid #efeeea' }}>
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.8125rem',
-                fontWeight: tab === t.id ? 600 : 400,
-                color: tab === t.id ? '#001814' : '#717976',
-                padding: '0.625rem 1rem',
-                background: 'none', border: 'none', cursor: 'pointer',
-                borderBottom: tab === t.id ? '2px solid #001814' : '2px solid transparent',
-                marginBottom: -1,
-                transition: 'color 0.1s',
-              }}
-            >
-              {t.label}
-            </button>
-          ))}
+        {/* Tabs */}
+        <div className="border-b border-outline-variant mb-6 overflow-x-auto">
+          <nav className="flex gap-6 min-w-max">
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`pb-2 text-body-md transition-colors ${
+                  tab === t.id
+                    ? 'border-b-2 border-primary text-primary font-semibold'
+                    : 'text-on-surface-variant hover:text-primary'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </nav>
         </div>
 
-        <div className="p-5">
+        {/* Tab content */}
+        <div className="mb-6">
           {tab === 'overview' && (
-            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5">
-              {(provider.features ?? provider.tags).map((f) => (
-                <li key={f} style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem' }}
-                  className="flex items-start gap-2">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0 mt-0.5">
-                    <circle cx="7" cy="7" r="7" fill="#0f2d28" fillOpacity="0.1" />
-                    <path d="M4 7l2 2 4-4" stroke="#0f2d28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <ul className="space-y-3">
+              {(provider.features ?? []).map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#006783" className="flex-shrink-0 mt-0.5">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
-                  {typeof f === 'string' ? f.replace(/-/g, ' ') : f}
+                  <span className="text-body-md text-on-surface-variant">{f}</span>
                 </li>
               ))}
             </ul>
           )}
-
           {tab === 'promo' && (
-            <div style={{ backgroundColor: '#fbf9f5', borderRadius: '0.25rem', padding: '1rem' }}>
-              {provider.welcomePromo ? (
-                <p style={{ fontFamily: 'var(--font-body)', color: '#1b1c1a', fontSize: '0.9375rem' }}>
-                  🎁 {provider.welcomePromo}
-                </p>
-              ) : (
-                <p style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.875rem' }}>
-                  No current welcome promotion.
-                </p>
-              )}
+            <div className="bg-secondary-container/10 rounded-lg p-4 border border-secondary-container/30">
+              <p className="text-body-md text-on-surface leading-relaxed">
+                {provider.welcomePromo ?? 'No current welcome promotion for this account.'}
+              </p>
             </div>
           )}
-
           {tab === 'eligibility' && (
-            <p style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem', lineHeight: 1.6 }}>
+            <p className="text-body-md text-on-surface-variant leading-relaxed">
               {provider.eligibility ?? 'Check provider website for eligibility criteria.'}
             </p>
           )}
-
           {tab === 'pros-cons' && (
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <p style={{ fontFamily: 'var(--font-body)', color: '#2d6a4f', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-                  className="uppercase font-semibold mb-2">Pros</p>
-                <ul className="space-y-1.5">
+                <p className="text-label-sm text-secondary font-bold uppercase tracking-wider mb-3">Pros</p>
+                <ul className="space-y-2">
                   {(provider.pros ?? []).map((p) => (
-                    <li key={p} style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem' }}
-                      className="flex gap-2 items-start">
-                      <span style={{ color: '#2d6a4f', flexShrink: 0, marginTop: 2 }}>✓</span>{p}
+                    <li key={p} className="flex items-start gap-2 text-body-md text-on-surface-variant">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#006783" className="flex-shrink-0 mt-0.5">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      </svg>
+                      {p}
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <p style={{ fontFamily: 'var(--font-body)', color: '#a43d23', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-                  className="uppercase font-semibold mb-2">Cons</p>
-                <ul className="space-y-1.5">
+                <p className="text-label-sm text-error font-bold uppercase tracking-wider mb-3">Cons</p>
+                <ul className="space-y-2">
                   {(provider.cons ?? []).map((c) => (
-                    <li key={c} style={{ fontFamily: 'var(--font-body)', color: '#414846', fontSize: '0.875rem' }}
-                      className="flex gap-2 items-start">
-                      <span style={{ color: '#a43d23', flexShrink: 0, marginTop: 2 }}>✗</span>{c}
+                    <li key={c} className="flex items-start gap-2 text-body-md text-on-surface-variant">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#ba1a1a" className="flex-shrink-0 mt-0.5">
+                        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                      </svg>
+                      {c}
                     </li>
                   ))}
                 </ul>
               </div>
               {provider.verdict && (
-                <div className="sm:col-span-2" style={{ borderTop: '1px solid #efeeea', paddingTop: '1rem' }}>
-                  <p style={{ fontFamily: 'var(--font-body)', color: '#717976', fontSize: '0.75rem', letterSpacing: '0.06em' }}
-                    className="uppercase font-semibold mb-1.5">Ledger Verdict</p>
-                  <p style={{ fontFamily: 'var(--font-headline)', color: '#1b1c1a', fontSize: '0.9375rem', fontStyle: 'italic', lineHeight: 1.6 }}>
-                    "{provider.verdict}"
-                  </p>
+                <div className="md:col-span-2 mt-2 p-4 bg-secondary-container/10 rounded-lg border border-secondary-container/30">
+                  <p className="text-body-md text-on-surface leading-relaxed">{provider.verdict}</p>
                 </div>
               )}
             </div>
           )}
         </div>
-      </div>
 
-      {/* Mobile CTA */}
-      <div style={{ borderTop: '1px solid #efeeea' }} className="p-4 flex gap-3 md:hidden">
-        <a
-          href={provider.ctaUrl} target="_blank" rel="noopener noreferrer"
-          style={{
-            flex: 1, textAlign: 'center',
-            backgroundColor: '#001814', color: '#fbf9f5',
-            fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.875rem',
-            padding: '0.625rem 1rem', borderRadius: '0.25rem', display: 'block',
-          }}
-        >
-          Visit Bank
-        </a>
+        {/* CTA row */}
+        <div className="flex flex-col md:flex-row gap-4 items-center border-t border-outline-variant pt-6">
+          <a
+            href={provider.ctaUrl} target="_blank" rel="noopener noreferrer"
+            className="w-full md:w-auto bg-primary text-on-primary px-8 py-3 rounded-lg text-body-md font-semibold hover:opacity-90 transition-opacity text-center"
+          >
+            Visit Bank
+          </a>
+          <details className="w-full md:w-auto group">
+            <summary className="flex items-center justify-center gap-2 cursor-pointer text-primary font-bold list-none py-3 px-6 hover:bg-surface-container-low rounded-lg transition-all text-body-md">
+              Read Ledger Verdict
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                className="transition-transform group-open:rotate-180">
+                <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </summary>
+            <div className="mt-4 p-4 bg-secondary-container/10 rounded-lg border border-secondary-container/30">
+              <p className="text-body-md text-on-surface leading-relaxed">{provider.verdict ?? provider.description}</p>
+            </div>
+          </details>
+        </div>
       </div>
-    </article>
+    </div>
   )
 }
