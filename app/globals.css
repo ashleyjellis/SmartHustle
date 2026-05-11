@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+html { scroll-behavior: smooth; }
+
 /* ─── Ledger Design System (from Stitch export) ─────────────────────────────
    Font:    Manrope (all weights)
    Primary: #011921  Secondary: #006783  Secondary-container: #80d9ff

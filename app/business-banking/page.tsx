@@ -60,6 +60,22 @@ export default function BusinessBankingPage() {
                   Updated May 2026
                 </span>
               </div>
+
+              {/* Hero CTAs */}
+              <div className="flex flex-wrap gap-4 mt-8">
+                <a
+                  href="#top-accounts"
+                  className="bg-secondary-container text-primary px-8 py-3 rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity"
+                >
+                  Compare Accounts
+                </a>
+                <a
+                  href="#what-is-it"
+                  className="border-2 border-secondary-container text-secondary-container px-8 py-3 rounded-lg font-bold text-body-md hover:bg-secondary-container/10 transition-colors"
+                >
+                  Find Out More
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -236,7 +252,7 @@ export default function BusinessBankingPage() {
           </div>
 
           {/* ── Sidebar ──────────────────────────────────────── */}
-          <PageSidebar />
+          <PageSidebar showQuiz={false} />
         </div>
       </main>
     </div>
