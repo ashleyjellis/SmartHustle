@@ -1,89 +1,91 @@
 import fs from 'fs'
 import path from 'path'
-import { createClient } from '@libsql/client/http'
 import { Provider } from './types'
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'providers.json')
+const USE_DB = Boolean(process.env.TURSO_DATABASE_URL)
 
-// ── Local JSON fallback (used when TURSO_DATABASE_URL is not set) ──────────
+// ── Local JSON fallback (dev only) ─────────────────────────────────────────
 
 function readJsonFile(): Provider[] {
-  const raw = fs.readFileSync(DATA_PATH, 'utf-8')
-  return JSON.parse(raw) as Provider[]
+  return JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8')) as Provider[]
 }
 
 function writeJsonFile(providers: Provider[]): void {
   fs.writeFileSync(DATA_PATH, JSON.stringify(providers, null, 2), 'utf-8')
 }
 
-// ── Turso client ────────────────────────────────────────────────────────────
+// ── Turso HTTP API ─────────────────────────────────────────────────────────
+// Uses the /v2/pipeline REST endpoint directly — no client library needed.
 
-function db() {
-  const url = (process.env.TURSO_DATABASE_URL ?? '').replace(/^libsql:\/\//, 'https://')
-  return createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN })
+type Arg = { type: 'text'; value: string } | { type: 'null' }
+
+function text(v: string): Arg { return { type: 'text', value: v } }
+
+function stmt(sql: string, args: Arg[] = []) {
+  return { type: 'execute' as const, stmt: { sql, args } }
 }
 
-async function ensureTable(client: ReturnType<typeof db>) {
-  await client.execute(`
-    CREATE TABLE IF NOT EXISTS providers (
-      id   TEXT PRIMARY KEY,
-      data TEXT NOT NULL
-    )
-  `)
+async function sql(statements: ReturnType<typeof stmt>[]) {
+  const url = process.env.TURSO_DATABASE_URL!.replace(/^libsql:\/\//, 'https://')
+
+  const res = await fetch(`${url}/v2/pipeline`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.TURSO_AUTH_TOKEN ?? ''}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ requests: [...statements, { type: 'close' }] }),
+  })
+
+  if (!res.ok) throw new Error(`Turso ${res.status}: ${await res.text()}`)
+
+  const data = await res.json() as {
+    results: { type: string; response?: { result: { rows: string[][] } } }[]
+  }
+
+  return data.results
+    .filter((r) => r.type === 'ok')
+    .map((r) => r.response?.result?.rows ?? [])
 }
 
-// ── Public API ──────────────────────────────────────────────────────────────
+async function setup() {
+  await sql([stmt(`CREATE TABLE IF NOT EXISTS providers (id TEXT PRIMARY KEY, data TEXT NOT NULL)`)])
+}
 
-const USE_DB = Boolean(process.env.TURSO_DATABASE_URL)
+async function getRows(): Promise<string[][]> {
+  const results = await sql([stmt('SELECT data FROM providers ORDER BY rowid')])
+  return results[0] ?? []
+}
+
+// ── Public API ─────────────────────────────────────────────────────────────
 
 export async function getProviders(): Promise<Provider[]> {
   if (!USE_DB) return readJsonFile()
 
-  const client = db()
-  await ensureTable(client)
+  await setup()
+  const rows = await getRows()
 
-  const result = await client.execute('SELECT data FROM providers ORDER BY rowid')
-
-  // Empty DB on first run — seed from the bundled JSON
-  if (result.rows.length === 0) {
+  if (rows.length === 0) {
     const seed = readJsonFile()
-    await Promise.all(
-      seed.map((p) =>
-        client.execute({
-          sql: 'INSERT OR REPLACE INTO providers (id, data) VALUES (?, ?)',
-          args: [p.id, JSON.stringify(p)],
-        })
-      )
-    )
+    await sql(seed.map((p) => stmt(
+      'INSERT OR REPLACE INTO providers (id, data) VALUES (?, ?)',
+      [text(p.id), text(JSON.stringify(p))]
+    )))
     return seed
   }
 
-  return result.rows.map((r) => JSON.parse(r.data as string) as Provider)
-}
-
-async function saveProvider(client: ReturnType<typeof db>, provider: Provider) {
-  await client.execute({
-    sql: 'INSERT OR REPLACE INTO providers (id, data) VALUES (?, ?)',
-    args: [provider.id, JSON.stringify(provider)],
-  })
+  return rows.map((row) => JSON.parse(row[0]) as Provider)
 }
 
 export async function createProvider(data: Omit<Provider, 'id'>): Promise<Provider> {
-  const id = data.name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
+  const id = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
   const provider: Provider = { id, ...data }
 
-  if (!USE_DB) {
-    const all = readJsonFile()
-    writeJsonFile([...all, provider])
-    return provider
-  }
+  if (!USE_DB) { writeJsonFile([...readJsonFile(), provider]); return provider }
 
-  const client = db()
-  await ensureTable(client)
-  await saveProvider(client, provider)
+  await setup()
+  await sql([stmt('INSERT OR REPLACE INTO providers (id, data) VALUES (?, ?)', [text(id), text(JSON.stringify(provider))])])
   return provider
 }
 
@@ -97,18 +99,13 @@ export async function updateProvider(id: string, data: Partial<Provider>): Promi
     return all[idx]
   }
 
-  const client = db()
-  await ensureTable(client)
+  await setup()
+  const rows = await sql([stmt('SELECT data FROM providers WHERE id = ?', [text(id)])])
+  const existing = rows[0]?.[0]
+  if (!existing) return null
 
-  const existing = await client.execute({
-    sql: 'SELECT data FROM providers WHERE id = ?',
-    args: [id],
-  })
-  if (existing.rows.length === 0) return null
-
-  const current = JSON.parse(existing.rows[0].data as string) as Provider
-  const updated: Provider = { ...current, ...data, id }
-  await saveProvider(client, updated)
+  const updated: Provider = { ...JSON.parse(existing[0]) as Provider, ...data, id }
+  await sql([stmt('INSERT OR REPLACE INTO providers (id, data) VALUES (?, ?)', [text(id), text(JSON.stringify(updated))])])
   return updated
 }
 
@@ -121,12 +118,9 @@ export async function deleteProvider(id: string): Promise<boolean> {
     return true
   }
 
-  const client = db()
-  await ensureTable(client)
-
-  const result = await client.execute({
-    sql: 'DELETE FROM providers WHERE id = ?',
-    args: [id],
-  })
-  return (result.rowsAffected ?? 0) > 0
+  await setup()
+  const before = (await getRows()).length
+  await sql([stmt('DELETE FROM providers WHERE id = ?', [text(id)])])
+  const after = (await getRows()).length
+  return after < before
 }
