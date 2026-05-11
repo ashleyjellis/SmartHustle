@@ -18,7 +18,11 @@ const tursoRes = await fetch(
   `https://api.turso.tech/v1/organizations/${TURSO_ORG}/databases/${TURSO_DB}/auth/tokens`,
   {
     method: 'POST',
-    headers: { Authorization: `Bearer ${TURSO_API_TOKEN}` },
+    headers: {
+      Authorization: `Bearer ${TURSO_API_TOKEN}`,
+      'Content-Length': '0',
+    },
+    body: null,
   }
 )
 if (!tursoRes.ok) {
