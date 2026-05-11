@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { createClient } from '@libsql/client'
+import { createClient } from '@libsql/client/http'
 import { Provider } from './types'
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'providers.json')
@@ -19,12 +19,8 @@ function writeJsonFile(providers: Provider[]): void {
 // ── Turso client ────────────────────────────────────────────────────────────
 
 function db() {
-  // Force HTTP mode (not WebSocket) — required for Vercel serverless
   const url = (process.env.TURSO_DATABASE_URL ?? '').replace(/^libsql:\/\//, 'https://')
-  return createClient({
-    url,
-    authToken: process.env.TURSO_AUTH_TOKEN,
-  })
+  return createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN })
 }
 
 async function ensureTable(client: ReturnType<typeof db>) {
