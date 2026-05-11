@@ -19,6 +19,7 @@ function writeJsonFile(providers: Provider[]): void {
 // Uses the /v2/pipeline REST endpoint directly — no client library needed.
 
 type Arg = { type: 'text'; value: string } | { type: 'null' }
+type TursoCell = { type: string; value: string | null }
 
 function text(v: string): Arg { return { type: 'text', value: v } }
 
@@ -41,7 +42,7 @@ async function sql(statements: ReturnType<typeof stmt>[]) {
   if (!res.ok) throw new Error(`Turso ${res.status}: ${await res.text()}`)
 
   const data = await res.json() as {
-    results: { type: string; response?: { result: { rows: string[][] } } }[]
+    results: { type: string; response?: { result: { rows: TursoCell[][] } } }[]
   }
 
   return data.results
@@ -53,7 +54,7 @@ async function setup() {
   await sql([stmt(`CREATE TABLE IF NOT EXISTS providers (id TEXT PRIMARY KEY, data TEXT NOT NULL)`)])
 }
 
-async function getRows(): Promise<string[][]> {
+async function getRows(): Promise<TursoCell[][]> {
   const results = await sql([stmt('SELECT data FROM providers ORDER BY rowid')])
   return results[0] ?? []
 }
@@ -75,7 +76,7 @@ export async function getProviders(): Promise<Provider[]> {
     return seed
   }
 
-  return rows.map((row) => JSON.parse(row[0]) as Provider)
+  return rows.map((row) => JSON.parse(row[0].value!) as Provider)
 }
 
 export async function createProvider(data: Omit<Provider, 'id'>): Promise<Provider> {
@@ -101,10 +102,10 @@ export async function updateProvider(id: string, data: Partial<Provider>): Promi
 
   await setup()
   const rows = await sql([stmt('SELECT data FROM providers WHERE id = ?', [text(id)])])
-  const existing = rows[0]?.[0]
+  const existing = rows[0]?.[0]?.[0]?.value
   if (!existing) return null
 
-  const updated: Provider = { ...JSON.parse(existing[0]) as Provider, ...data, id }
+  const updated: Provider = { ...JSON.parse(existing) as Provider, ...data, id }
   await sql([stmt('INSERT OR REPLACE INTO providers (id, data) VALUES (?, ?)', [text(id), text(JSON.stringify(updated))])])
   return updated
 }
