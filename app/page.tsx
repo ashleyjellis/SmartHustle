@@ -5,8 +5,8 @@ import { getProviders } from '@/lib/providers'
 
 export const dynamic = 'force-dynamic'
 
-export default function HomePage() {
-  const allProviders = getProviders()
+export default async function HomePage() {
+  const allProviders = await getProviders()
   const featured = allProviders.filter((p) => p.featured)
 
   return (

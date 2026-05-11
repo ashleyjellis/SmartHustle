@@ -11,7 +11,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
   const { id } = await params
   const body = await req.json()
-  const updated = updateProvider(id, body)
+  const updated = await updateProvider(id, body)
 
   if (!updated) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -25,7 +25,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
   }
 
   const { id } = await params
-  const deleted = deleteProvider(id)
+  const deleted = await deleteProvider(id)
 
   if (!deleted) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })

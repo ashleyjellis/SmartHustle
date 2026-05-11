@@ -10,6 +10,6 @@ export default async function AdminPage() {
     redirect('/admin/login')
   }
 
-  const providers = getProviders()
+  const providers = await getProviders()
   return <AdminDashboard initialProviders={providers} />
 }

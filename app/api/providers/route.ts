@@ -3,7 +3,7 @@ import { getProviders, createProvider } from '@/lib/providers'
 import { isAuthenticated } from '@/lib/auth'
 
 export async function GET() {
-  return NextResponse.json(getProviders())
+  return NextResponse.json(await getProviders())
 }
 
 export async function POST(req: NextRequest) {
@@ -12,6 +12,6 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const provider = createProvider(body)
+  const provider = await createProvider(body)
   return NextResponse.json(provider, { status: 201 })
 }

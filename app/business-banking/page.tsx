@@ -45,8 +45,8 @@ const FAQ = [
   },
 ]
 
-export default function BusinessBankingPage() {
-  const providers = getProviders().filter((p) => p.category === 'business-banking')
+export default async function BusinessBankingPage() {
+  const providers = (await getProviders()).filter((p) => p.category === 'business-banking')
 
   return (
     <div className="bg-surface">
