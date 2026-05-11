@@ -33,18 +33,41 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-surface flex items-center justify-center px-4">
-      <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-8 w-full max-w-md">
-
+    <div
+      style={{
+        minHeight: 'calc(100vh - 80px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px 16px',
+        backgroundColor: '#faf9f9',
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '440px',
+          backgroundColor: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #c2c7ca',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+          padding: '40px',
+        }}
+      >
         {/* Header */}
-        <div className="mb-8">
-          <p className="text-headline-lg text-primary font-bold">Ledger</p>
-          <p className="text-on-surface-variant text-body-md mt-1">Admin access</p>
+        <div style={{ marginBottom: '32px' }}>
+          <p style={{ fontSize: '24px', fontWeight: 800, color: '#011921', marginBottom: '4px' }}>
+            Ledger
+          </p>
+          <p style={{ fontSize: '14px', color: '#42484a' }}>Admin access</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
-            <label className="block text-label-sm font-semibold text-on-surface mb-2" htmlFor="username">
+            <label
+              htmlFor="username"
+              style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#011921', marginBottom: '8px' }}
+            >
               Username
             </label>
             <input
@@ -53,12 +76,28 @@ export default function AdminLoginPage() {
               type="text"
               required
               autoComplete="username"
-              className="w-full border border-outline-variant rounded-lg px-4 py-3 text-body-md bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors"
+              style={{
+                display: 'block',
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '12px 16px',
+                fontSize: '15px',
+                color: '#011921',
+                backgroundColor: '#faf9f9',
+                border: '1px solid #c2c7ca',
+                borderRadius: '8px',
+                outline: 'none',
+              }}
+              onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
+              onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
             />
           </div>
 
           <div>
-            <label className="block text-label-sm font-semibold text-on-surface mb-2" htmlFor="password">
+            <label
+              htmlFor="password"
+              style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#011921', marginBottom: '8px' }}
+            >
               Password
             </label>
             <input
@@ -67,18 +106,45 @@ export default function AdminLoginPage() {
               type="password"
               required
               autoComplete="current-password"
-              className="w-full border border-outline-variant rounded-lg px-4 py-3 text-body-md bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors"
+              style={{
+                display: 'block',
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '12px 16px',
+                fontSize: '15px',
+                color: '#011921',
+                backgroundColor: '#faf9f9',
+                border: '1px solid #c2c7ca',
+                borderRadius: '8px',
+                outline: 'none',
+              }}
+              onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
+              onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
             />
           </div>
 
           {error && (
-            <p className="text-body-md text-error bg-error-container px-4 py-3 rounded-lg">{error}</p>
+            <p style={{ fontSize: '14px', color: '#ba1a1a', backgroundColor: '#fff8f7', border: '1px solid #ffdad6', padding: '12px 16px', borderRadius: '8px' }}>
+              {error}
+            </p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-on-primary font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 text-body-md mt-2"
+            style={{
+              width: '100%',
+              backgroundColor: '#011921',
+              color: '#ffffff',
+              fontWeight: 700,
+              fontSize: '15px',
+              padding: '14px',
+              borderRadius: '8px',
+              border: 'none',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.6 : 1,
+              marginTop: '8px',
+            }}
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
