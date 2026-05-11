@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react'
 
 const TOC = [
-  { label: 'Top Recommendations', href: '#top-accounts' },
+  { label: 'Top 10 Accounts', href: '#top-accounts' },
   { label: 'What is a Business Account?', href: '#what-is-it' },
-  { label: 'How to find the right account', href: '#how-to-find' },
-  { label: 'How to Switch Accounts', href: '#can-i-switch' },
-  { label: 'Frequently Asked Questions', href: '#faqs' },
+  { label: 'Do I Need One?', href: '#do-i-need-it' },
+  { label: 'How to Find the Right Account', href: '#how-to-find' },
+  { label: 'Can I Switch?', href: '#can-i-switch' },
+  { label: 'FAQs', href: '#faqs' },
 ]
 
-const SECTION_IDS = TOC.map((t) => t.href.slice(1))
+const SECTION_IDS = ['top-accounts', 'what-is-it', 'do-i-need-it', 'how-to-find', 'can-i-switch', 'faqs']
 
 export default function PageSidebar({ showQuiz = true, showAd = true }: { showQuiz?: boolean; showAd?: boolean }) {
   const [activeHref, setActiveHref] = useState('#top-accounts')

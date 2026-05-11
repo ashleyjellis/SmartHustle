@@ -55,22 +55,22 @@ export default function ProviderStrip({ provider }: { provider: Provider }) {
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-3 gap-3 mb-6">
           {provider.monthlyFee && (
             <div className="bg-surface-container-low p-4 rounded-lg">
               <span className="text-label-sm text-on-surface-variant block mb-1">Monthly Fee</span>
               <span className="text-headline-md text-primary">{provider.monthlyFee}</span>
             </div>
           )}
-          {provider.bestFor && (
+          {provider.cardFee && (
             <div className="bg-surface-container-low p-4 rounded-lg">
-              <span className="text-label-sm text-on-surface-variant block mb-1">Best For</span>
-              <span className="text-headline-md text-primary">{provider.bestFor}</span>
+              <span className="text-label-sm text-on-surface-variant block mb-1">UK Card Fee</span>
+              <span className="text-headline-md text-primary">{provider.cardFee}</span>
             </div>
           )}
           {provider.transferFee && (
-            <div className="bg-surface-container-low p-4 rounded-lg col-span-2 md:col-span-1">
-              <span className="text-label-sm text-on-surface-variant block mb-1">Free Transfers</span>
+            <div className="bg-surface-container-low p-4 rounded-lg">
+              <span className="text-label-sm text-on-surface-variant block mb-1">UK Transfers</span>
               <span className="text-headline-md text-primary">{provider.transferFee}</span>
             </div>
           )}
