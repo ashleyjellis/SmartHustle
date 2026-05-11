@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Manrope, Inter } from 'next/font/google'
 import Nav from '@/components/Nav'
+import BackToTop from '@/components/BackToTop'
 import './globals.css'
 
 const manrope = Manrope({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <Nav />
         <main className="flex-1">{children}</main>
+        <BackToTop />
 
         {/* Footer — matches Stitch exactly */}
         <footer className="bg-primary text-white mt-16">

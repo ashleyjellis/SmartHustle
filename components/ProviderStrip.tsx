@@ -8,7 +8,7 @@ type Tab = 'overview' | 'promo' | 'eligibility' | 'pros-cons'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'overview', label: 'Overview' },
-  { id: 'promo', label: 'Welcome Promo' },
+  { id: 'promo', label: 'Promo' },
   { id: 'eligibility', label: 'Eligibility' },
   { id: 'pros-cons', label: 'Pros & Cons' },
 ]
@@ -77,13 +77,13 @@ export default function ProviderStrip({ provider }: { provider: Provider }) {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-outline-variant mb-6 overflow-x-auto">
-          <nav className="flex gap-6 min-w-max">
+        <div className="border-b border-outline-variant mb-6">
+          <nav className="flex">
             {TABS.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`pb-2 text-body-md transition-colors ${
+                className={`flex-1 pb-2 pt-1 text-center text-label-sm md:text-body-md transition-colors whitespace-nowrap ${
                   tab === t.id
                     ? 'border-b-2 border-primary text-primary font-semibold'
                     : 'text-on-surface-variant hover:text-primary'

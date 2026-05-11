@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import ProviderStrip from '@/components/ProviderStrip'
+import ProviderList from '@/components/ProviderList'
 import PageSidebar from '@/components/PageSidebar'
 import { getProviders } from '@/lib/providers'
 
@@ -72,53 +72,7 @@ export default function BusinessBankingPage() {
           {/* ── Left/main column ─────────────────────────────── */}
           <div className="lg:col-span-8 space-y-6">
 
-            {/* Filter + sort bar */}
-            <div id="top-accounts" className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex flex-wrap items-center gap-3">
-                {['All Accounts', 'Free Monthly Fee', 'Fintech Only', 'High Street'].map((f, i) => (
-                  <button
-                    key={f}
-                    className={`px-6 py-2 rounded-full font-bold text-body-md whitespace-nowrap transition-colors ${
-                      i === 0
-                        ? 'bg-primary text-on-primary'
-                        : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest'
-                    }`}
-                  >
-                    {f}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-2 cursor-pointer text-on-surface-variant hover:text-primary transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 6h16M8 12h8M11 18h2" strokeLinecap="round"/>
-                </svg>
-                <span className="font-bold text-body-md">Sort by: Ledger Rating</span>
-              </div>
-            </div>
-
-            {/* Provider cards */}
-            {providers.map((p, idx) => (
-              <div key={p.id}>
-                <ProviderStrip provider={p} />
-
-                {/* Editorial callout after 1st provider */}
-                {idx === 0 && (
-                  <div className="bg-surface-container-high p-8 rounded-xl border-l-4 border-secondary mt-6">
-                    <div className="flex items-start gap-4">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="#011921" className="flex-shrink-0 mt-1">
-                        <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
-                      </svg>
-                      <div>
-                        <h4 className="text-headline-md text-primary mb-2">The Honest Truth: Switching</h4>
-                        <p className="text-body-md text-on-surface-variant">
-                          Switching business bank accounts is no longer the nightmare it used to be. The Current Account Switch Service (CASS) handles the transfer of all your standing orders and direct debits automatically within 7 working days. Don't stay with a sub-par bank just because you fear the paperwork.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+            <ProviderList providers={providers} />
 
             {/* ── Editorial sections ───────────────────────── */}
             <div className="mt-16 space-y-16">
