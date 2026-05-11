@@ -6,7 +6,9 @@ import { Provider } from '@/lib/types'
 
 const EMPTY: Omit<Provider, 'id'> = {
   name: '', logo: '', category: 'business-banking', badge: '',
-  description: '', monthlyFee: '', cardFee: '', transferFee: '',
+  description: '', verdict: '', rating: undefined, bestFor: '',
+  monthlyFee: '', cardFee: '', transferFee: '',
+  eligibility: '', welcomePromo: '',
   tags: [], pros: [], cons: [], featured: false, ctaUrl: '',
 }
 
@@ -170,18 +172,23 @@ export default function AdminDashboard({ initialProviders }: { initialProviders:
                 ['logo', 'Logo path (e.g. /logos/name.svg)', 'text'],
                 ['category', 'Category', 'text'],
                 ['badge', 'Badge label', 'text'],
+                ['rating', 'Rating (e.g. 4.5)', 'number'],
+                ['bestFor', 'Best for', 'text'],
                 ['ctaUrl', 'CTA URL', 'url'],
                 ['monthlyFee', 'Monthly fee', 'text'],
                 ['cardFee', 'Card purchase fee', 'text'],
                 ['transferFee', 'Transfer / free transfers', 'text'],
-              ] as [keyof typeof form, string, string][]).map(([key, label]) => (
+                ['eligibility', 'Eligibility', 'text'],
+                ['welcomePromo', 'Welcome promo', 'text'],
+              ] as [keyof typeof form, string, string][]).map(([key, label, type]) => (
                 <div key={key}>
                   <label style={S.label}>{label}</label>
                   <input
-                    type="text"
-                    value={(form[key] as string) ?? ''}
-                    onChange={(e) => setField(key, e.target.value as never)}
+                    type={type}
+                    value={(form[key] as string | number) ?? ''}
+                    onChange={(e) => setField(key, (type === 'number' ? (e.target.value === '' ? undefined : Number(e.target.value)) : e.target.value) as never)}
                     style={S.input}
+                    step={type === 'number' ? '0.1' : undefined}
                     onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
                     onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
                   />
@@ -194,6 +201,18 @@ export default function AdminDashboard({ initialProviders }: { initialProviders:
                   rows={3}
                   value={form.description}
                   onChange={(e) => setField('description', e.target.value)}
+                  style={{ ...S.input, resize: 'vertical' }}
+                  onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
+                  onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
+                />
+              </div>
+
+              <div>
+                <label style={S.label}>Verdict (overview shown on provider page)</label>
+                <textarea
+                  rows={4}
+                  value={form.verdict ?? ''}
+                  onChange={(e) => setField('verdict', e.target.value)}
                   style={{ ...S.input, resize: 'vertical' }}
                   onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
                   onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
