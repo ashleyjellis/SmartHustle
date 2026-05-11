@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { getProviders, createProvider } from '@/lib/providers'
 import { isAuthenticated } from '@/lib/auth'
 
@@ -13,5 +14,8 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json()
   const provider = await createProvider(body)
+
+  revalidatePath('/')
+  revalidatePath('/business-banking')
   return NextResponse.json(provider, { status: 201 })
 }

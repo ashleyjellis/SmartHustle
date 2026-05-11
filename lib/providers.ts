@@ -37,6 +37,7 @@ async function sql(statements: ReturnType<typeof stmt>[]) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ requests: [...statements, { type: 'close' }] }),
+    cache: 'no-store',
   })
 
   if (!res.ok) throw new Error(`Turso ${res.status}: ${await res.text()}`)
