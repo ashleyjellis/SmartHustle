@@ -12,7 +12,7 @@ const TOC = [
 
 const SECTION_IDS = TOC.map((t) => t.href.slice(1))
 
-export default function PageSidebar({ showQuiz = true }: { showQuiz?: boolean }) {
+export default function PageSidebar({ showQuiz = true, showAd = true }: { showQuiz?: boolean; showAd?: boolean }) {
   const [activeHref, setActiveHref] = useState('#top-accounts')
 
   useEffect(() => {
@@ -71,16 +71,18 @@ export default function PageSidebar({ showQuiz = true }: { showQuiz?: boolean })
       )}
 
       {/* Advertisement */}
-      <div className="bg-surface-container p-6 rounded-xl border border-outline-variant shadow-sm">
-        <p className="text-label-sm text-on-surface-variant mb-4 font-bold tracking-widest uppercase">Advertisement</p>
-        <div className="bg-white rounded-lg p-4 mb-4 border border-outline-variant/30">
-          <p className="text-headline-md text-primary mb-1">Revolut Business</p>
-          <p className="text-body-md text-on-surface-variant">Scale globally with multi-currency accounts.</p>
+      {showAd && (
+        <div className="bg-surface-container p-6 rounded-xl border border-outline-variant shadow-sm">
+          <p className="text-label-sm text-on-surface-variant mb-4 font-bold tracking-widest uppercase">Advertisement</p>
+          <div className="bg-white rounded-lg p-4 mb-4 border border-outline-variant/30">
+            <p className="text-headline-md text-primary mb-1">Revolut Business</p>
+            <p className="text-body-md text-on-surface-variant">Scale globally with multi-currency accounts.</p>
+          </div>
+          <button className="w-full text-primary font-bold py-2 hover:underline decoration-secondary decoration-2 text-body-md">
+            View details
+          </button>
         </div>
-        <button className="w-full text-primary font-bold py-2 hover:underline decoration-secondary decoration-2 text-body-md">
-          View details
-        </button>
-      </div>
+      )}
     </aside>
   )
 }

@@ -252,7 +252,7 @@ export default function BusinessBankingPage() {
           </div>
 
           {/* ── Sidebar ──────────────────────────────────────── */}
-          <PageSidebar showQuiz={false} />
+          <PageSidebar showQuiz={false} showAd={false} />
         </div>
       </main>
     </div>

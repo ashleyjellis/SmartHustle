@@ -33,18 +33,18 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 w-full max-w-sm">
+    <div className="min-h-[calc(100vh-80px)] bg-surface flex items-center justify-center px-4">
+      <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-8 w-full max-w-md">
+
+        {/* Header */}
         <div className="mb-8">
-          <p className="text-2xl font-bold text-brand-navy">
-            King<span className="text-brand-coral">Page</span>
-          </p>
-          <p className="text-gray-500 text-sm mt-1">Admin access</p>
+          <p className="text-headline-lg text-primary font-bold">Ledger</p>
+          <p className="text-on-surface-variant text-body-md mt-1">Admin access</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
+            <label className="block text-label-sm font-semibold text-on-surface mb-2" htmlFor="username">
               Username
             </label>
             <input
@@ -53,12 +53,12 @@ export default function AdminLoginPage() {
               type="text"
               required
               autoComplete="username"
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-coral"
+              className="w-full border border-outline-variant rounded-lg px-4 py-3 text-body-md bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
+            <label className="block text-label-sm font-semibold text-on-surface mb-2" htmlFor="password">
               Password
             </label>
             <input
@@ -67,18 +67,18 @@ export default function AdminLoginPage() {
               type="password"
               required
               autoComplete="current-password"
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-coral"
+              className="w-full border border-outline-variant rounded-lg px-4 py-3 text-body-md bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors"
             />
           </div>
 
           {error && (
-            <p className="text-sm text-red-600 bg-red-50 px-4 py-2.5 rounded-xl">{error}</p>
+            <p className="text-body-md text-error bg-error-container px-4 py-3 rounded-lg">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-brand-coral hover:bg-red-500 text-white font-semibold py-2.5 rounded-xl transition-colors disabled:opacity-60 mt-2"
+            className="w-full bg-primary text-on-primary font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 text-body-md mt-2"
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
