@@ -19,8 +19,10 @@ function writeJsonFile(providers: Provider[]): void {
 // ── Turso client ────────────────────────────────────────────────────────────
 
 function db() {
+  // Force HTTP mode (not WebSocket) — required for Vercel serverless
+  const url = (process.env.TURSO_DATABASE_URL ?? '').replace(/^libsql:\/\//, 'https://')
   return createClient({
-    url: process.env.TURSO_DATABASE_URL!,
+    url,
     authToken: process.env.TURSO_AUTH_TOKEN,
   })
 }
