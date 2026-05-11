@@ -5,26 +5,25 @@ import { useRouter } from 'next/navigation'
 import { Provider } from '@/lib/types'
 
 const EMPTY: Omit<Provider, 'id'> = {
-  name: '',
-  logo: '',
-  category: 'business-banking',
-  badge: '',
-  description: '',
-  monthlyFee: '',
-  cardFee: '',
-  transferFee: '',
-  tags: [],
-  pros: [],
-  cons: [],
-  featured: false,
-  ctaUrl: '',
+  name: '', logo: '', category: 'business-banking', badge: '',
+  description: '', monthlyFee: '', cardFee: '', transferFee: '',
+  tags: [], pros: [], cons: [], featured: false, ctaUrl: '',
 }
 
-interface Props {
-  initialProviders: Provider[]
+const S = {
+  input: {
+    display: 'block', width: '100%', boxSizing: 'border-box' as const,
+    padding: '10px 14px', fontSize: '14px', color: '#011921',
+    backgroundColor: '#faf9f9', border: '1px solid #c2c7ca',
+    borderRadius: '8px', outline: 'none',
+  },
+  label: {
+    display: 'block', fontSize: '12px', fontWeight: 600,
+    color: '#42484a', marginBottom: '6px',
+  },
 }
 
-export default function AdminDashboard({ initialProviders }: Props) {
+export default function AdminDashboard({ initialProviders }: { initialProviders: Provider[] }) {
   const router = useRouter()
   const [providers, setProviders] = useState<Provider[]>(initialProviders)
   const [editing, setEditing] = useState<Provider | null>(null)
@@ -38,46 +37,30 @@ export default function AdminDashboard({ initialProviders }: Props) {
     router.push('/admin/login')
   }
 
-  function openCreate() {
-    setForm(EMPTY)
-    setEditing(null)
-    setCreating(true)
-    setError('')
-  }
-
-  function openEdit(p: Provider) {
-    setForm({ ...p })
-    setEditing(p)
-    setCreating(false)
-    setError('')
-  }
-
-  function closeModal() {
-    setEditing(null)
-    setCreating(false)
-    setError('')
+  function openCreate() { setForm(EMPTY); setEditing(null); setCreating(true); setError('') }
+  function openEdit(p: Provider) { setForm({ ...p }); setEditing(p); setCreating(false); setError('') }
+  function closeModal() { setEditing(null); setCreating(false); setError('') }
+  function setField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
+    setForm((prev) => ({ ...prev, [key]: value }))
   }
 
   async function handleSave() {
-    setSaving(true)
-    setError('')
+    setSaving(true); setError('')
     try {
       if (creating) {
         const res = await fetch('/api/providers', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
         })
-        if (!res.ok) throw new Error('Save failed')
+        if (!res.ok) throw new Error()
         const created: Provider = await res.json()
         setProviders((prev) => [...prev, created])
       } else if (editing) {
         const res = await fetch(`/api/providers/${editing.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'PUT', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
         })
-        if (!res.ok) throw new Error('Save failed')
+        if (!res.ok) throw new Error()
         const updated: Provider = await res.json()
         setProviders((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
       }
@@ -92,15 +75,12 @@ export default function AdminDashboard({ initialProviders }: Props) {
   async function handleDelete(id: string) {
     if (!confirm('Delete this provider? This cannot be undone.')) return
     const res = await fetch(`/api/providers/${id}`, { method: 'DELETE' })
-    if (res.ok || res.status === 204) {
-      setProviders((prev) => prev.filter((p) => p.id !== id))
-    }
+    if (res.ok || res.status === 204) setProviders((prev) => prev.filter((p) => p.id !== id))
   }
 
   async function toggleFeatured(p: Provider) {
     const res = await fetch(`/api/providers/${p.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ featured: !p.featured }),
     })
     if (res.ok) {
@@ -109,28 +89,24 @@ export default function AdminDashboard({ initialProviders }: Props) {
     }
   }
 
-  function setField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }))
-  }
-
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
+    <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px' }}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
         <div>
-          <h1 className="text-2xl font-bold text-brand-navy">Admin</h1>
-          <p className="text-gray-500 text-sm">Manage providers</p>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#011921', marginBottom: '4px' }}>Admin</h1>
+          <p style={{ fontSize: '14px', color: '#42484a' }}>Manage providers</p>
         </div>
-        <div className="flex gap-3">
+        <div style={{ display: 'flex', gap: '12px' }}>
           <button
             onClick={openCreate}
-            className="bg-brand-coral hover:bg-red-500 text-white font-semibold text-sm px-4 py-2 rounded-xl transition-colors"
+            style={{ backgroundColor: '#011921', color: '#ffffff', fontWeight: 700, fontSize: '14px', padding: '10px 20px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}
           >
             + Add provider
           </button>
           <button
             onClick={handleLogout}
-            className="text-sm text-gray-500 hover:text-brand-navy border border-gray-200 px-4 py-2 rounded-xl transition-colors"
+            style={{ fontSize: '14px', color: '#42484a', border: '1px solid #c2c7ca', padding: '10px 20px', borderRadius: '8px', backgroundColor: 'transparent', cursor: 'pointer' }}
           >
             Sign out
           </button>
@@ -138,69 +114,57 @@ export default function AdminDashboard({ initialProviders }: Props) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="border-b border-gray-100 bg-gray-50">
+      <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #c2c7ca', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead style={{ borderBottom: '1px solid #e9e8e8', backgroundColor: '#f5f3f4' }}>
             <tr>
-              <th className="text-left px-5 py-3 font-semibold text-gray-600">Name</th>
-              <th className="text-left px-5 py-3 font-semibold text-gray-600">Category</th>
-              <th className="text-left px-5 py-3 font-semibold text-gray-600">Featured</th>
-              <th className="text-left px-5 py-3 font-semibold text-gray-600">Actions</th>
+              {['Name', 'Category', 'Featured', 'Actions'].map((h) => (
+                <th key={h} style={{ textAlign: 'left', padding: '12px 20px', fontWeight: 600, color: '#42484a' }}>{h}</th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody>
             {providers.map((p) => (
-              <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-5 py-3 font-medium text-brand-navy">{p.name}</td>
-                <td className="px-5 py-3 text-gray-500">{p.category}</td>
-                <td className="px-5 py-3">
+              <tr key={p.id} style={{ borderBottom: '1px solid #f5f3f4' }}>
+                <td style={{ padding: '12px 20px', fontWeight: 600, color: '#011921' }}>{p.name}</td>
+                <td style={{ padding: '12px 20px', color: '#42484a' }}>{p.category}</td>
+                <td style={{ padding: '12px 20px' }}>
                   <button
                     onClick={() => toggleFeatured(p)}
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-full transition-colors ${
-                      p.featured
-                        ? 'bg-red-50 text-brand-coral hover:bg-red-100'
-                        : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
-                    }`}
+                    style={{
+                      fontSize: '12px', fontWeight: 700, padding: '4px 12px', borderRadius: '99px', border: 'none', cursor: 'pointer',
+                      backgroundColor: p.featured ? '#80d9ff' : '#e9e8e8',
+                      color: p.featured ? '#011921' : '#42484a',
+                    }}
                   >
                     {p.featured ? 'Featured' : 'Not featured'}
                   </button>
                 </td>
-                <td className="px-5 py-3 flex gap-3">
-                  <button
-                    onClick={() => openEdit(p)}
-                    className="text-blue-600 hover:underline font-medium"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(p.id)}
-                    className="text-red-500 hover:underline font-medium"
-                  >
-                    Delete
-                  </button>
+                <td style={{ padding: '12px 20px' }}>
+                  <button onClick={() => openEdit(p)} style={{ color: '#006783', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', marginRight: '16px' }}>Edit</button>
+                  <button onClick={() => handleDelete(p.id)} style={{ color: '#ba1a1a', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
         {providers.length === 0 && (
-          <p className="text-center py-12 text-gray-400">No providers yet. Add one above.</p>
+          <p style={{ textAlign: 'center', padding: '48px', color: '#42484a' }}>No providers yet. Add one above.</p>
         )}
       </div>
 
       {/* Modal */}
       {(creating || editing) && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="font-bold text-brand-navy">
-                {creating ? 'Add provider' : 'Edit provider'}
-              </h2>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '16px' }}>
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', width: '100%', maxWidth: '560px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
+            {/* Modal header */}
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid #e9e8e8', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#011921' }}>{creating ? 'Add provider' : 'Edit provider'}</h2>
+              <button onClick={closeModal} style={{ fontSize: '20px', color: '#42484a', background: 'none', border: 'none', cursor: 'pointer', lineHeight: 1 }}>✕</button>
             </div>
 
-            <div className="px-6 py-5 flex flex-col gap-4">
+            {/* Modal body */}
+            <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {([
                 ['name', 'Name', 'text'],
                 ['logo', 'Logo path (e.g. /logos/name.svg)', 'text'],
@@ -209,71 +173,76 @@ export default function AdminDashboard({ initialProviders }: Props) {
                 ['ctaUrl', 'CTA URL', 'url'],
                 ['monthlyFee', 'Monthly fee', 'text'],
                 ['cardFee', 'Card purchase fee', 'text'],
-                ['transferFee', 'Transfer fee', 'text'],
-              ] as [keyof typeof form, string, string][]).map(([key, label, type]) => (
+                ['transferFee', 'Transfer / free transfers', 'text'],
+              ] as [keyof typeof form, string, string][]).map(([key, label]) => (
                 <div key={key}>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
+                  <label style={S.label}>{label}</label>
                   <input
-                    type={type}
+                    type="text"
                     value={(form[key] as string) ?? ''}
                     onChange={(e) => setField(key, e.target.value as never)}
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-coral"
+                    style={S.input}
+                    onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
+                    onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
                   />
                 </div>
               ))}
 
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Description</label>
+                <label style={S.label}>Description</label>
                 <textarea
                   rows={3}
                   value={form.description}
                   onChange={(e) => setField('description', e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-coral resize-none"
+                  style={{ ...S.input, resize: 'vertical' }}
+                  onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
+                  onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
                 />
               </div>
 
               {(['tags', 'pros', 'cons'] as const).map((key) => (
                 <div key={key}>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">
-                    {key.charAt(0).toUpperCase() + key.slice(1)} (one per line)
-                  </label>
+                  <label style={S.label}>{key.charAt(0).toUpperCase() + key.slice(1)} (one per line)</label>
                   <textarea
                     rows={3}
                     value={(form[key] as string[]).join('\n')}
-                    onChange={(e) =>
-                      setField(key, e.target.value.split('\n').filter(Boolean) as never)
-                    }
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-coral resize-none"
+                    onChange={(e) => setField(key, e.target.value.split('\n').filter(Boolean) as never)}
+                    style={{ ...S.input, resize: 'vertical' }}
+                    onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
+                    onBlur={(e) => { e.target.style.borderColor = '#c2c7ca'; e.target.style.boxShadow = 'none' }}
                   />
                 </div>
               ))}
 
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
                 <input
                   type="checkbox"
                   checked={form.featured}
                   onChange={(e) => setField('featured', e.target.checked)}
-                  className="accent-brand-coral w-4 h-4"
+                  style={{ width: '16px', height: '16px', accentColor: '#011921' }}
                 />
-                <span className="text-sm font-medium text-gray-700">Featured</span>
+                <span style={{ fontSize: '14px', fontWeight: 600, color: '#011921' }}>Featured</span>
               </label>
 
               {error && (
-                <p className="text-sm text-red-600 bg-red-50 px-4 py-2.5 rounded-xl">{error}</p>
+                <p style={{ fontSize: '14px', color: '#ba1a1a', backgroundColor: '#fff8f7', border: '1px solid #ffdad6', padding: '12px 16px', borderRadius: '8px' }}>
+                  {error}
+                </p>
               )}
             </div>
 
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3">
+            {/* Modal footer */}
+            <div style={{ padding: '16px 24px', borderTop: '1px solid #e9e8e8', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
               <button
                 onClick={closeModal}
-                className="text-sm text-gray-500 hover:text-brand-navy border border-gray-200 px-4 py-2 rounded-xl"
+                style={{ fontSize: '14px', color: '#42484a', border: '1px solid #c2c7ca', padding: '10px 20px', borderRadius: '8px', backgroundColor: 'transparent', cursor: 'pointer' }}
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="bg-brand-coral hover:bg-red-500 text-white font-semibold text-sm px-5 py-2 rounded-xl transition-colors disabled:opacity-60"
+                style={{ backgroundColor: '#011921', color: '#ffffff', fontWeight: 700, fontSize: '14px', padding: '10px 24px', borderRadius: '8px', border: 'none', cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.6 : 1 }}
               >
                 {saving ? 'Saving…' : 'Save'}
               </button>
