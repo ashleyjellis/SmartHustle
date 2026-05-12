@@ -149,11 +149,6 @@ export default function ProviderStrip({ provider }: { provider: Provider }) {
                   ))}
                 </ul>
               </div>
-              {provider.verdict && (
-                <div className="md:col-span-2 mt-2 p-4 bg-secondary-container/10 rounded-lg border border-secondary-container/30">
-                  <p className="text-body-md text-on-surface leading-relaxed">{provider.verdict}</p>
-                </div>
-              )}
             </div>
           )}
         </div>

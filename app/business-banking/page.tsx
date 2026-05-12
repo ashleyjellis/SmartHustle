@@ -167,16 +167,6 @@ export default async function BusinessBankingPage() {
                   </p>
                 </div>
 
-                {/* Business owner quote */}
-                <div className="bg-surface-container-low border-l-4 border-secondary rounded-xl p-6">
-                  <p className="text-body-lg text-on-surface leading-relaxed italic mb-4">
-                    &ldquo;I opened a business bank account out of necessity, to make my life easier. It means I can separate my business expenses from my personal bills, which helps when I&apos;m doing my tax or sending documents to my accountant. Overall it makes things a lot more clear cut.&rdquo;
-                  </p>
-                  <p className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">
-                    — Christopher Kelly, founder of Kelly&apos;s Coaching
-                  </p>
-                </div>
-
                 {/* Pros and cons */}
                 <div className="mt-8">
                   <h3 className="text-headline-md text-primary mb-6">What are the pros and cons of a business account for a small business?</h3>
@@ -318,7 +308,7 @@ export default async function BusinessBankingPage() {
                   <div className="space-y-4">
                     {[
                       '71% of small business owners use a separate business bank account rather than their personal account for their business finances, according to the Current Account Switch Service (CASS).',
-                      '70% of business owners would consider an online-only business bank account, according to our own NerdWallet UK survey.',
+                      '70% of small business owners say they would consider switching to a digital-only business bank account.',
                       'Account features that business owners value most include accounting software integration (65%), mobile banking (54%) and fee-free banking (44%), according to CASS.',
                     ].map((stat) => (
                       <div key={stat} className="flex items-start gap-3">

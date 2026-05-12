@@ -9,7 +9,7 @@ const EMPTY: Omit<Provider, 'id'> = {
   description: '', verdict: '', rating: undefined, bestFor: '',
   monthlyFee: '', cardFee: '', transferFee: '',
   eligibility: '', welcomePromo: '',
-  tags: [], pros: [], cons: [], featured: false, ctaUrl: '',
+  features: [], tags: [], pros: [], cons: [], featured: false, ctaUrl: '',
 }
 
 const S = {
@@ -219,12 +219,17 @@ export default function AdminDashboard({ initialProviders }: { initialProviders:
                 />
               </div>
 
-              {(['tags', 'pros', 'cons'] as const).map((key) => (
+              {([
+                ['features', 'Overview bullets (one per line)'],
+                ['pros', 'Pros (one per line)'],
+                ['cons', 'Cons (one per line)'],
+                ['tags', 'Tags (one per line)'],
+              ] as [keyof typeof form, string][]).map(([key, label]) => (
                 <div key={key}>
-                  <label style={S.label}>{key.charAt(0).toUpperCase() + key.slice(1)} (one per line)</label>
+                  <label style={S.label}>{label}</label>
                   <textarea
                     rows={3}
-                    value={(form[key] as string[]).join('\n')}
+                    value={((form[key] as string[] | undefined) ?? []).join('\n')}
                     onChange={(e) => setField(key, e.target.value.split('\n').filter(Boolean) as never)}
                     style={{ ...S.input, resize: 'vertical' }}
                     onFocus={(e) => { e.target.style.borderColor = '#006783'; e.target.style.boxShadow = '0 0 0 2px rgba(0,103,131,0.2)' }}
